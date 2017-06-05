@@ -1,0 +1,49 @@
+1. Define key programming terms relevant to Swift and iOS programming.
+2. Describe the process of creating iOS apps.
+3. State the purpose of the Apple developer tools, such as Xcode, Instruments,
+debugger, analyzer, and iOS Simulator.
+4. Distinguish well-written code from poorly-written code.
+5. Recognize patterns and idioms present in the Cocoa Touch API and other Apple
+frameworks.
+6. Employ the Apple developer tools to create an iOS app.
+7. Demonstrate programming best practices in Swift.
+8. Examine and subdivide app functionality into properly designed components.
+9. Explain and summarize iOS API features including location, mapping, sensors,
+gestures, multimedia and user interface components.
+10.Plan, prepare and build an original iOS app, from concept to working program.
+
+
+
+https://swifteducation.github.io/assets/pdfs/CourseOverview.pdf
+https://www.raywenderlich.com/145809/getting-started-core-data-tutorial
+https://itunes.apple.com/us/course/swift-playgrounds-learn-to-code-1-2/id1153807202
+https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/TheBasics.html
+https://www.appcoda.com/unit-testing-swift/
+
+Class Introduction: Developing iOS Applications using Swift 3
+Class assumes you know Cocoa/Objective-C and have previous development experience with iOS apps
+Why we are here today: Enhance Nisum's delivery capabilities, learn something new and valuable and have fun
+Personal introduction: Name, 3 yrs Adroit->Nisum, developing Carbon/Cocoa apps since 2002, iOS since 2009 and Swift since 2014
+Class mate introduction and class role call, including myself: primary languages Carbon, Cocoa, JavaScript/ES6, Java, SQL, PL/SQL, PHP, ActionScript
+Class overview: 
+Week 1: Swift Syntax and structures
+Week 2: Swift iOS basics and your first app
+Week 3: Advanced Swift programming w/rest services, CoreData and gestures
+Week 4: Air tight programming: debugging techniques, crash log analysis, Instrumentation and unit testing. Final project due
+
+Materials required:
+GitHub login
+GoToMeeting
+Skype username
+Apple developer login
+XCode 8
+Swift Programming Language Guide
+
+Class schedule:
+San Francisco				Karachi​                    Hyderabad​
+Monday ​8-10 PM				Tuesday ​8-10 AM​          Tuesday 8:30-10:30am   ​
+Wednesday ​8-10 PM			Thursday ​8-10 AM​			Thursday 8:30-10:30am ​
+Thursday 8:30-9:30 PM		Friday 8:30-9:30 AM​        Friday​9-10am
+
+Submit assignments by raising a Github pull request
+Walk class through creating a Github pull request

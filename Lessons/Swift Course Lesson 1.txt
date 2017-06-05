@@ -1,0 +1,681 @@
+
+Getting started: the language basics
+Swift is similar and was highly influenced by other languages: Carbon, Cocoa, Java, JavaScript, Haskell
+
+Optionals, constants, variables, tuples
+var welcomeMessage = "Hello World"
+print("The current value of hello world is \(welcomeMessage)")
+semicolons not necessary
+Use let for constants 
+Basic number types: Int, UInt16, Float, Double
+typealias AudioSample = UInt16
+tuples - kind of like an array of values
+let http404Error = (404, "Not Found")
+decomposing tuples
+let (statusCode, statusMessage) = http404Error
+print("The status code is \(statusCode)")
+Use underscores or integers to access individual values:
+let (justTheStatusCode, _) = http404Error
+print("The status code is \(justTheStatusCode)")
+print("The status code is \(http404Error.0)")
+
+Optionals are required for variables that will contain nil values
+Doesn't work (have to use String?):
+var regString:String
+if regString != nil {
+    print("Reg string is nil")
+}
+
+// serverResponseCode contains an actual Int value of 404
+var serverResponseCode: Int? = 404
+serverResponseCode = nil
+// serverResponseCode now contains no value
+if serverResponseCode == nil {
+    print("not here")
+}
+    
+And for nil checking
+class MyClass	{
+}
+
+var someOptional:MyClass?
+someOptional = MyClass()
+
+if someOptional != nil {
+    print("someOptional is a \(someOptional)")
+}
+
+if let nonOptional = someOptional {
+    print("nonOptional  is a \(nonOptional)")
+}
+
+Use an optional binding as shorthand for validating values:
+var possibleNumber:String = "123"
+if let actualNumber = Int(possibleNumber) {
+    print("\"\(possibleNumber)\" has an integer value of \(actualNumber)")
+} else {
+    print("\"\(possibleNumber)\" could not be converted to an integer")
+}
+
+
+Implicitly unwrapped optionals
+
+let possibleString: String? = "An optional string."
+let forcedString: String = possibleString! // requires an exclamation mark
+
+let assumedString: String!
+assumedString = "An implicitly unwrapped optional cannot be nil and then set exactly once."
+let implicitString: String = assumedString // no need for an exclamation mark
+print(implicitString)
+    
+Note
+If an implicitly unwrapped optional is nil and you try to access its wrapped value, you’ll trigger a runtime error. 
+The result is exactly the same as if you place an exclamation mark after a normal optional that does not contain a value.
+
+Nil coalescing
+
+    let defaultColorName = "red"
+    var userDefinedColorName: String?   // defaults to nil
+     
+    var colorNameToUse = userDefinedColorName ?? defaultColorName
+    // userDefinedColorName is nil, so colorNameToUse is set to the default of "red"
+
+Throwing errors
+    func canThrowAnError() throws {
+        // this function may or may not throw an error
+    }
+
+Catching errors
+    do {
+        try canThrowAnError()
+        // no error was thrown
+    } catch {
+        // an error was thrown
+    }
+
+
+assert(age >= 0)
+
+Range operator
+for index in 1...5 {
+    print("\(index) times 5 is \(index * 5)")
+}
+
+Half open range operator
+let names = ["Anna", "Alex", "Brian", "Jack"]
+let count = names.count
+for i in 0..<count {
+    print("Person \(i + 1) is called \(names[i])")
+}
+
+Swift’s String type is a value type. If you create a new String value, 
+that String value is copied when it is passed to a function or method, or when it is assigned to a constant or variable.
+
+String interpolation
+    let multiplier = 3
+    let message = "\(multiplier) times 2.5 is \(Double(multiplier) * 2.5)"
+	print(message)
+
+String equality
+let quotation = "We're a lot alike, you and I."
+let sameQuotation = "We're a lot alike, you and I."
+if quotation == sameQuotation {
+    print("These two strings are considered equal")
+}
+
+Collections
+Array: ordered
+Set: unordered unique
+Dictionary: name-value
+
+Create an array
+var someInts = [Int]()
+someInts.append(1)
+someInts.append(2)
+print("someInts is of type [Int] with \(someInts.count) items.")
+// Prints "someInts is of type [Int] with 0 items."
+let moreInts = [3, 4]
+	
+Concatenate arrays
+var allInts = someInts + moreInts
+
+Iterating
+for anInt in allInts {
+    print("anInt: \(anInt)")
+}
+
+Creating a set
+var letters = Set<Character>()
+letters.insert("a")
+print("letters is of type Set<Character> with \(letters.count) items.")
+
+var favoriteGenres: Set<String> = ["Rock", "Classical", "Hip hop"]
+
+Dictionary
+    var namesOfIntegers = [Int: String]()
+    // namesOfIntegers is an empty [Int: String] dictionary
+
+    namesOfIntegers[16] = "sixteen"
+    // namesOfIntegers now contains 1 key-value pair
+    namesOfIntegers = [:]
+    // namesOfIntegers is once again an empty dictionary of type [Int: String]
+
+    var airports: [String: String] = ["YYZ": "Toronto Pearson", "DUB": "Dublin"]
+
+if let oldValue = airports.updateValue("Dublin Airport", forKey: "DUB") {
+    print("The old value for DUB was \(oldValue).")
+}
+
+for (airportCode, airportName) in airports {
+    print("\(airportCode): \(airportName)")
+}
+
+    let airportCodes = [String](airports.keys)
+    // airportCodes is ["YYZ", "LHR"]
+     
+    let airportNames = [String](airports.values)
+    // airportNames is ["Toronto Pearson", "London Heathrow"]
+
+or index in 1...5 {
+    print("\(index) times 5 is \(index * 5)")
+}
+
+    let minuteInterval = 5
+    for tickMark in stride(from: 0, to: minutes, by: minuteInterval) {
+        // render the tick mark every 5 minutes (0, 5, 10, 15 ... 45, 50, 55)
+    }
+
+(the powerful) Case statement
+let someCharacter: Character = "z"
+switch someCharacter {
+	case "a":
+		print("The first letter of the alphabet")
+	case "z":
+		print("The last letter of the alphabet")
+		fallthrough
+	default:
+		print("Some other character")
+}
+
+** Note no implicit fallthrough
+
+Support Tuples and intervals
+let somePoint = (1, 1)
+switch somePoint {
+case (0, 0):
+    print("\(somePoint) is at the origin")
+case (_, 0):
+    print("\(somePoint) is on the x-axis")
+case (0, _):
+    print("\(somePoint) is on the y-axis")
+case (-2...2, -2...2):
+    print("\(somePoint) is inside the box")
+default:
+    print("\(somePoint) is outside of the box")
+}
+
+let anotherPoint = (2, 0)
+switch anotherPoint {
+case (let x, 0):
+    print("on the x-axis with an x value of \(x)")
+case (0, let y):
+    print("on the y-axis with a y value of \(y)")
+case let (x, y):
+    print("somewhere else at (\(x), \(y))")
+}
+
+Case where
+
+    let yetAnotherPoint = (1, -1)
+    switch yetAnotherPoint {
+    case let (x, y) where x == y:
+        print("(\(x), \(y)) is on the line x == y")
+    case let (x, y) where x == -y:
+        print("(\(x), \(y)) is on the line x == -y")
+    case let (x, y):
+        print("(\(x), \(y)) is just some arbitrary point")
+    }
+    // Prints "(1, -1) is on the line x == -y"
+
+Compound Cases
+let someCharacter: Character = "e"
+switch someCharacter {
+	case "a", "e", "i", "o", "u":
+		blah!
+		
+Early exit
+func greet(person: [String: String]) {
+    guard let name = person["name"] else {
+        return
+    }
+    
+
+API Availability check
+
+    if #available(iOS 10, macOS 10.12, *) {
+        // Use iOS 10 APIs on iOS, and use macOS 10.12 APIs on macOS
+    } else {
+        // Fall back to earlier iOS and macOS APIs
+    }
+
+Functions!
+    func greet(person: String) -> String {
+        let greeting = "Hello, " + person + "!"
+        return greeting
+    }
+
+
+func minMax(array: [Int]) -> (min: Int, max: Int) {
+	var currentMin = array[0]
+	var currentMax = array[0]
+	for value in array[1..<array.count] {
+		if value < currentMin {
+			currentMin = value
+		} else if value > currentMax {
+			currentMax = value
+		}
+	}
+	return (currentMin, currentMax)
+}
+
+let bounds = minMax(array: [8, -6, 2, 109, 3, 71])
+print("min is \(bounds.min) and max is \(bounds.max)")
+
+Argument labels and parameter names
+
+    func greet(person: String, from hometown: String) -> String {
+        return "Hello \(person)!  Glad you could visit from \(hometown)."
+    }
+    print(greet(person: "Bill", from: "Cupertino"))
+    // Prints "Hello Bill!  Glad you could visit from Cupertino."
+
+Default parameter values
+
+    func someFunction(parameterWithoutDefault: Int, parameterWithDefault: Int = 12) {
+        // If you omit the second argument when calling this function, then
+        // the value of parameterWithDefault is 12 inside the function body.
+    }
+    someFunction(parameterWithoutDefault: 3, parameterWithDefault: 6) // parameterWithDefault is 6
+    someFunction(parameterWithoutDefault: 4) // parameterWithDefault is 12
+
+Variatic parameters
+
+    func arithmeticMean(_ numbers: Double...) -> Double {
+        var total: Double = 0
+        for number in numbers {
+            total += number
+        }
+        return total / Double(numbers.count)
+    }
+    arithmeticMean(1, 2, 3, 4, 5)
+    // returns 3.0, which is the arithmetic mean of these five numbers
+    arithmeticMean(3, 8.25, 18.75)
+    // returns 10.0, which is the arithmetic mean of these three numbers
+
+Function parameters are constants unless you specify inout
+
+    func swapTwoInts(_ a: inout Int, _ b: inout Int) {
+        let temporaryA = a
+        a = b
+        b = temporaryA
+    }
+
+swapTwoInts(&someInt, &anotherInt)
+
+
+Function type:
+    var mathFunction: (Int, Int) -> Int = addTwoInts
+or simply
+let anotherMathFunction = addTwoInts
+
+Passing functions as parameters
+func printMathResult(_ mathFunction: (Int, Int) -> Int, _ a: Int, _ b: Int) {
+    print("Result: \(mathFunction(a, b))")
+}
+printMathResult(addTwoInts, 3, 5)
+
+*Variables in outer scopes are available to inner scopes.
+
+Functions returning functions
+    func chooseStepFunction(backward: Bool) -> (Int) -> Int {
+        return backward ? stepBackward : stepForward
+    }
+
+Closures {}
+just like blocks.. kind of but really more like lambdas in Java
+plus they capture values like Obj-C and JS
+
+Closure syntax
+
+    { (parameters) -> return type in
+        statements
+    }
+
+
+Regular way
+func backward(_ s1: String, _ s2: String) -> Bool {
+    return s1 > s2
+}
+var reversedNames = names.sorted(by: backward)
+
+Closure way
+    reversedNames = names.sorted(by: { (s1: String, s2: String) -> Bool in
+        return s1 > s2
+    })
+
+With inferred types
+reversedNames = names.sorted(by: { s1, s2 in return s1 > s2 } )
+
+And implicit returns
+reversedNames = names.sorted(by: { s1, s2 in s1 > s2 } )
+
+Shorthand argument names
+reversedNames = names.sorted(by: { $0 > $1 } )
+
+And inferred by operator method
+reversedNames = names.sorted(by: >)
+
+Passing in closure
+func someFunctionThatTakesAClosure(closure: () -> Void) {
+    // function body goes here
+}
+// Here's how you call this function without using a trailing closure:
+someFunctionThatTakesAClosure(closure: {
+    // closure's body goes here
+})
+
+// Here's how you call this function with a trailing closure instead:
+someFunctionThatTakesAClosure() {
+    // trailing closure's body goes here
+}
+
+So when you see this: reversedNames = names.sorted() { $0 > $1 }
+or this reversedNames = names.sorted { $0 > $1 }
+they're using trailing closure syntax
+
+Capturing value
+
+    func makeIncrementer(forIncrement amount: Int) -> () -> Int {
+        var runningTotal = 0
+        func incrementer() -> Int {
+            runningTotal += amount
+            return runningTotal
+        }
+        return incrementer
+    }
+
+let incrementByTen = makeIncrementer(forIncrement: 10)
+
+Escaping
+Use escaping when a closure is passed into a function but then called later (after the function returns)
+
+    var completionHandlers: [() -> Void] = []
+    func someFunctionWithEscapingClosure(completionHandler: @escaping () -> Void) {
+        completionHandlers.append(completionHandler)
+    }
+
+ 
+ Enums
+ 
+ Simple Enum 
+    enum Planet {
+        case mercury, venus, earth, mars, jupiter, saturn, uranus, neptune
+    }
+var myPlanet = .earth
+
+Switch statement
+
+directionToHead = .south
+switch directionToHead {
+case .north:
+    print("Lots of planets have a north")
+case .south:
+    print("Watch out for penguins")
+case .east:
+    print("Where the sun rises")
+case .west:
+    print("Where the skies are blue")
+}
+
+Values can have different types and hold custom values:
+    enum Barcode {
+        case upc(Int, Int, Int, Int)
+        case qrCode(String)
+    }
+var productBarcode = Barcode.upc(8, 85909, 51226, 3)
+
+Custom "raw values" can be assigned at declaration time:
+    enum ASCIIControlCharacter: Character {
+        case tab = "\t"
+        case lineFeed = "\n"
+        case carriageReturn = "\r"
+    }
+
+or implicitly:
+    enum Planet: Int {
+        case mercury = 1, venus, earth, mars, jupiter, saturn, uranus, neptune
+    }
+print(Planet.venus.rawValue)
+
+let positionToFind = 3
+if let somePlanet = Planet(rawValue: positionToFind) {
+    switch somePlanet {
+    case .earth:
+        print("Mostly harmless")
+    default:
+        print("Not a safe place for humans")
+    }
+} else {
+    print("There isn't a planet at position \(positionToFind)")
+}
+
+Classes and Structs
+
+    struct Resolution {
+        var width = 0
+        var height = 0
+    }
+    class VideoMode {
+        var resolution = Resolution()
+        var interlaced = false
+        var frameRate = 0.0
+        var name: String?
+    }
+
+let vga = Resolution(width: 640, height: 480)
+
+Equality
+if tenEighty === alsoTenEighty {
+    print("tenEighty and alsoTenEighty refer to the same VideoMode instance.")
+}
+
+Difference between structs and classes: structs are passed by value
+
+Getters and setters (computed properties)	
+struct Rect {
+    var origin = Point()
+    var size = Size()
+    var center: Point {
+        get {
+            let centerX = origin.x + (size.width / 2)
+            let centerY = origin.y + (size.height / 2)
+            return Point(x: centerX, y: centerY)
+        }
+        set(newCenter) {
+            origin.x = newCenter.x - (size.width / 2)
+            origin.y = newCenter.y - (size.height / 2)
+        }
+    }
+}
+
+Setters parameter names default to "newValue" so you can shorthand:
+	set {
+		origin.x = newValue.x - (size.width / 2)
+		origin.y = newValue.y - (size.height / 2)
+	} 
+	
+	
+Property Observers
+class StepCounter {
+    var totalSteps: Int = 0 {
+        willSet(newTotalSteps) {
+            print("About to set totalSteps to \(newTotalSteps)")
+        }
+        didSet {
+            if totalSteps > oldValue  {
+                print("Added \(totalSteps - oldValue) steps")
+            }
+        }
+    }
+}
+
+Instance methods
+Use self instead of this:
+    func increment() {
+        self.count += 1
+    }
+
+Type (Class) methods
+
+Use "static" for class methods and variables
+struct LevelTracker {
+    static var highestUnlockedLevel = 1
+    var currentLevel = 1
+    
+    static func unlock(_ level: Int) {
+        if level > highestUnlockedLevel { highestUnlockedLevel = level }
+    }
+    
+    mutating func increment() {
+        self.currentLevel += 1
+    }
+}
+* Struct methods (other than get/set) cannot modify values unless designated as mutating 
+
+
+Classes can implement their own subscript notation, just like dictionaries, arrays and sets:
+struct TimesTable {
+    let multiplier: Int
+    subscript(index: Int) -> Int {
+        return multiplier * index
+    }
+}
+let threeTimesTable = TimesTable(multiplier: 3)
+print("six times three is \(threeTimesTable[6])")
+
+Extend classes with ":"
+    class SomeSubclass: SomeSuperclass {
+        // subclass definition goes here
+    }
+
+Use override and super to do just that:
+    class Train: Vehicle {
+        override var description: String {
+			return super.description + " in gear \(gear)"
+		}
+        override func makeNoise() {
+            print("Choo Choo")
+        }
+    }
+
+Prevent overrides by using final
+
+Constructors are defined using init:
+
+class Rect {
+    var time = 0, space = 0
+    var origin = CGPoint()
+    var size = CGSize()
+    var center: CGPoint {
+        get {
+            let centerX = origin.x + (size.width / 2)
+            let centerY = origin.y + (size.height / 2)
+            return CGPoint(x: centerX, y: centerY)
+        }
+        set(newCenter) {
+            origin.x = newCenter.x - (size.width / 2)
+            origin.y = newCenter.y - (size.height / 2)
+        }
+    }
+    
+    init(origin:CGPoint){
+        self.origin = origin;
+    }
+    init(center:CGPoint){
+        self.center = center;
+    }
+    init(origin:CGPoint, size:CGSize){
+        self.origin = origin;
+        self.size = size;
+    }
+    
+    func changeSomething()  {
+        self.size = CGSize(width: 3, height: 4)
+    }
+    
+    func advance(_ level: Int) -> Bool {
+        return true;
+    }
+}
+
+var aRect = Rect(origin:CGPoint(x:1,y:2))
+
+var myRect = Rect(origin:CGPoint(x:1,y:2), size:CGSize(width:10,height:20))
+
+myRect.changeSomething()
+
+print("x: \(myRect.advance(1))")
+
+class RectExt:Rect{
+    override init(origin:CGPoint){
+        super.init(origin: origin)
+        super.origin = origin;
+    }
+}
+
+
+*Swift creates a default initializer that includes (and requires) all instance variables
+unless at least one custom init method is provided.
+
+Convenience and designated initializers:
+
+Rule 1
+    A designated initializer must call a designated initializer from its immediate superclass. 
+Rule 2
+    A convenience initializer must call another initializer from the same class. 
+Rule 3
+    A convenience initializer must ultimately call a designated initializer. 
+
+A simple way to remember this is:
+
+    Designated initializers must always delegate up.
+
+    Convenience initializers must always delegate across.
+
+    class Food {
+        var name: String
+        init(name: String) {
+            self.name = name
+        }
+        convenience init() {
+            self.init(name: "[Unnamed]")
+        }
+    }
+    
+De-initialization
+Removing all references to an object will cause deinit method to be called:
+
+class MyClass	{
+    deinit {
+        print("MyClass is done")
+    }
+}
+var me:MyClass?
+me = MyClass()
+me = nil
+print("here")
+
+
+
+
+Reading: Swift Language Guide: Closures and Enumerations

@@ -1,0 +1,32 @@
+Lesson 2
+
+Custom equality
+import Foundation
+
+class MyClass: NSObject {
+
+    var value = 5
+
+    override func isEqual(object: AnyObject?) -> Bool {
+        if let object = object as? MyClass {
+            return value == object.value
+        } else {
+            return false
+        }
+    }
+
+    override var hash: Int {
+        return value.hashValue
+    }
+}
+
+var x = MyClass()
+var y = MyClass()
+var set = NSMutableSet()
+
+x.value = 10
+y.value = 10
+set.addObject(x)
+
+x.isEqual(y) // true
+set.containsObject(y) // true

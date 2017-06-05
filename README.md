@@ -6,7 +6,7 @@ Clone this project locally and ask the instructor to make you a collborator so t
 
 Open the folder for the assignment to read the assignment details. Create your project/solution files inside the Assignments<num> folder with your username name on it, such as:
 
-SwiftClassAssignments/Assignment1/patricksculley/MyPlayground.playground
+SwiftClassAssignments/Assignments/Assignment1/patricksculley/MyPlayground.playground
 
 Once you are ready to submit the assignment, merge to master:
 git add .
