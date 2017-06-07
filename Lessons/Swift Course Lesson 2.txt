@@ -417,3 +417,18 @@ Constraining Generic types
         // function body goes here
     }
 
+Access Control
+Classes, properties, methods, enums, etc are internal by default
+
+public class SomePublicClass {}
+internal class SomeInternalClass {}
+fileprivate class SomeFilePrivateClass {}
+private class SomePrivateClass {}
+
+fileprivate supports access between items declared in the same file and private is 
+specific to the items themselves
+
+ Custom operators
+ 
+ Swift provides advanced logic operators such as bitwise OR and allows you to implement
+ your own custom operators for a class just like we see with concatenation (+) of strings and arrays
