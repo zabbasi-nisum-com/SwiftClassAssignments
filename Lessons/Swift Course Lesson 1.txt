@@ -1,3 +1,4 @@
+First: Swift playground in XCode
 
 Getting started: the language basics
 Swift is similar and was highly influenced by other languages: Carbon, Cocoa, Java, JavaScript, Haskell
@@ -48,6 +49,11 @@ if someOptional != nil {
 if let nonOptional = someOptional {
     print("nonOptional  is a \(nonOptional)")
 }
+
+Optional Chaining
+someOptional = nil
+var myValu:String? = someOptional?.someValue
+
 
 Use an optional binding as shorthand for validating values:
 var possibleNumber:String = "123"
@@ -491,44 +497,6 @@ if tenEighty === alsoTenEighty {
 
 Difference between structs and classes: structs are passed by value
 
-Getters and setters (computed properties)	
-struct Rect {
-    var origin = Point()
-    var size = Size()
-    var center: Point {
-        get {
-            let centerX = origin.x + (size.width / 2)
-            let centerY = origin.y + (size.height / 2)
-            return Point(x: centerX, y: centerY)
-        }
-        set(newCenter) {
-            origin.x = newCenter.x - (size.width / 2)
-            origin.y = newCenter.y - (size.height / 2)
-        }
-    }
-}
-
-Setters parameter names default to "newValue" so you can shorthand:
-	set {
-		origin.x = newValue.x - (size.width / 2)
-		origin.y = newValue.y - (size.height / 2)
-	} 
-	
-	
-Property Observers
-class StepCounter {
-    var totalSteps: Int = 0 {
-        willSet(newTotalSteps) {
-            print("About to set totalSteps to \(newTotalSteps)")
-        }
-        didSet {
-            if totalSteps > oldValue  {
-                print("Added \(totalSteps - oldValue) steps")
-            }
-        }
-    }
-}
-
 Instance methods
 Use self instead of this:
     func increment() {
@@ -551,32 +519,6 @@ struct LevelTracker {
     }
 }
 * Struct methods (other than get/set) cannot modify values unless designated as mutating 
-
-
-Classes can implement their own subscript notation, just like dictionaries, arrays and sets:
-struct TimesTable {
-    let multiplier: Int
-    subscript(index: Int) -> Int {
-        return multiplier * index
-    }
-}
-let threeTimesTable = TimesTable(multiplier: 3)
-print("six times three is \(threeTimesTable[6])")
-
-Extend classes with ":"
-    class SomeSubclass: SomeSuperclass {
-        // subclass definition goes here
-    }
-
-Use override and super to do just that:
-    class Train: Vehicle {
-        override var description: String {
-			return super.description + " in gear \(gear)"
-		}
-        override func makeNoise() {
-            print("Choo Choo")
-        }
-    }
 
 Prevent overrides by using final
 
@@ -662,20 +604,5 @@ A simple way to remember this is:
         }
     }
     
-De-initialization
-Removing all references to an object will cause deinit method to be called:
-
-class MyClass	{
-    deinit {
-        print("MyClass is done")
-    }
-}
-var me:MyClass?
-me = MyClass()
-me = nil
-print("here")
-
-
-
 
 Reading: Swift Language Guide: Closures and Enumerations

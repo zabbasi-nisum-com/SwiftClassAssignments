@@ -1,6 +1,104 @@
 Lesson 2
 
-Custom equality
+Class Getters and setters (computed properties)	
+struct Rect {
+    var origin = Point()
+    var size = Size()
+    var center: Point {
+        get {
+            let centerX = origin.x + (size.width / 2)
+            let centerY = origin.y + (size.height / 2)
+            return Point(x: centerX, y: centerY)
+        }
+        set(newCenter) {
+            origin.x = newCenter.x - (size.width / 2)
+            origin.y = newCenter.y - (size.height / 2)
+        }
+    }
+}
+
+Setters parameter names default to "newValue" so you can shorthand:
+	set {
+		origin.x = newValue.x - (size.width / 2)
+		origin.y = newValue.y - (size.height / 2)
+	} 
+	
+	
+Class Property Observers
+class StepCounter {
+    var totalSteps: Int = 0 {
+        willSet(newTotalSteps) {
+            print("About to set totalSteps to \(newTotalSteps)")
+        }
+        didSet {
+            if totalSteps > oldValue  {
+                print("Added \(totalSteps - oldValue) steps")
+            }
+        }
+    }
+}
+
+Classes can implement their own subscript notation, just like dictionaries, arrays and sets:
+struct TimesTable {
+    let multiplier: Int
+    subscript(index: Int) -> Int {
+        return multiplier * index
+    }
+}
+let threeTimesTable = TimesTable(multiplier: 3)
+print("six times three is \(threeTimesTable[6])")
+
+Extend classes with ":"
+    class SomeSubclass: SomeSuperclass {
+        // subclass definition goes here
+    }
+
+Use override and super to do just that:
+    class Train: Vehicle {
+        override var description: String {
+			return super.description + " in gear \(gear)"
+		}
+        override func makeNoise() {
+            print("Choo Choo")
+        }
+    }
+
+Optional chaining with methods
+class MyClass	{
+    func doSomething() {
+        print("doSomething")
+    }
+    func returnSomething() -> String {
+        return "returnSomething"
+    }
+}
+
+var me:MyClass?
+if me?.doSomething() != nil {
+    print("I did")
+} else {
+    print("I cant")
+}
+me = MyClass()
+if let output = me?.returnSomething() {
+    print(output)
+}
+
+* Also works with subscripts and across multiple levels
+Class De-initialization
+Removing all references to an object will cause deinit method to be called:
+
+class MyClass	{
+    deinit {
+        print("MyClass is done")
+    }
+}
+var me:MyClass?
+me = MyClass()
+me = nil
+print("here")
+
+Custom equality in a class
 import Foundation
 
 class MyClass: NSObject {
@@ -30,3 +128,292 @@ set.addObject(x)
 
 x.isEqual(y) // true
 set.containsObject(y) // true
+
+Weak references work the same way as Cocoa:
+
+    class Person {
+        let name: String
+        init(name: String) { self.name = name }
+        var apartment: Apartment?
+        deinit { print("\(name) is being deinitialized") }
+    }
+     
+    class Apartment {
+        let unit: String
+        init(unit: String) { self.unit = unit }
+        weak var tenant: Person?
+        deinit { print("Apartment \(unit) is being deinitialized") }
+    }
+
+Unowned instances are similar to weak references when you need to access a parent entity from a child
+
+    class Customer {
+        let name: String
+        var card: CreditCard?
+        init(name: String) {
+            self.name = name
+        }
+        deinit { print("\(name) is being deinitialized") }
+    }
+     
+    class CreditCard {
+        let number: UInt64
+        unowned let customer: Customer
+        init(number: UInt64, customer: Customer) {
+            self.number = number
+            self.customer = customer
+        }
+        deinit { print("Card #\(number) is being deinitialized") }
+    }
+
+Error Handling
+
+Enums are well suited for error types
+
+    enum VendingMachineError: Error {
+        case invalidSelection
+        case insufficientFunds(coinsNeeded: Int)
+        case outOfStock
+    }
+
+throw VendingMachineError.insufficientFunds(coinsNeeded: 5)
+
+Example:
+    enum VendingMachineError: Error {
+    case invalidSelection
+    case insufficientFunds(coinsNeeded: Int)
+    case outOfStock
+}
+
+struct Item {
+    var price: Int
+    var count: Int
+}
+
+class VendingMachine {
+    var inventory = [
+        "Candy Bar": Item(price: 12, count: 7),
+        "Chips": Item(price: 10, count: 4),
+        "Pretzels": Item(price: 7, count: 11)
+    ]
+    var coinsDeposited = 0
+    
+    func vend(itemNamed name: String) throws {
+        guard let item = inventory[name] else {
+            throw VendingMachineError.invalidSelection
+        }
+        
+        guard item.count > 0 else {
+            throw VendingMachineError.outOfStock
+        }
+        
+        guard item.price <= coinsDeposited else {
+            throw VendingMachineError.insufficientFunds(coinsNeeded: item.price - coinsDeposited)
+        }
+        
+        coinsDeposited -= item.price
+        
+        var newItem = item
+        newItem.count -= 1
+        inventory[name] = newItem
+        
+        print("Dispensing \(name)")
+    }
+}
+
+var vendingMachine = VendingMachine()
+vendingMachine.coinsDeposited = 8
+do {
+    try vendingMachine.vend(itemNamed: "Kitkat")
+} catch VendingMachineError.invalidSelection {
+    print("Invalid Selection.")
+} catch VendingMachineError.outOfStock {
+    print("Out of Stock.")
+} catch VendingMachineError.insufficientFunds(let coinsNeeded) {
+    print("Insufficient funds. Please insert an additional \(coinsNeeded) coins.")
+}
+
+You can use try with optionals as well if you know no exception will be rhrown:
+if let count = try? vendingMachine.getInventory(itemName: "Candy Bar") { print("Some inventory \(count)") }
+
+If you know no exception will be thrown, you a:
+print("Just do it " + String(try! vendingMachine.getInventory(itemName: "Candy Bar")))
+
+Use defer similar to finally in Java:
+func processFile(filename: String) throws {
+    var fileManager = FileManager.default
+    do {
+        try fileManager.moveItem(at: URL.init(fileURLWithPath:filename), to: URL.init(fileURLWithPath:"somewhere/else"))
+        defer {
+            try! fileManager.removeItem(atPath: filename)
+            print("removeItem file")
+        }
+        let file: FileHandle? = FileHandle(forReadingAtPath: filename)
+        let databuffer = file?.readData(ofLength: 5)
+        print(databuffer!.base64EncodedString())
+        defer {
+            file?.closeFile()
+            print("closed file")
+        }
+        // removeItem(atPath: filename) is called here, at the end of the scope.
+        // file?.closeFile()is called here, at the end of the scope.
+    } catch {
+        print("an error was thrown")
+    }
+}
+
+try! processFile(filename: "a file")
+
+Type casting
+for item in library {
+    if item is Movie {
+        movieCount += 1
+    } else if item is Song {
+        songCount += 1
+    }
+}
+
+for item in library {
+    if let movie = item as? Movie {
+        print("Movie: \(movie.name), dir. \(movie.director)")
+    } else if let song = item as? Song {
+        print("Song: \(song.name), by \(song.artist)")
+    }
+}
+
+Any type
+    Any can represent an instance of any type at all, including function types.
+
+    AnyObject can represent an instance of any class type.
+
+
+    var things = [Any]()
+     
+    things.append(0)
+    things.append(0.0)
+    things.append(42)
+    things.append(3.14159)
+    things.append("hello")
+    things.append((3.0, 5.0))
+    things.append(Movie(name: "Ghostbusters", director: "Ivan Reitman"))
+    things.append({ (name: String) -> String in "Hello, \(name)" })
+
+for thing in things {
+    switch thing {
+    case 0 as Int:
+        print("zero as an Int")
+    case 0 as Double:
+        print("zero as a Double")
+        
+....
+
+
+Extensions
+
+with computed properties:
+extension Double {
+    var km: Double { return self * 1_000.0 }
+    var m: Double { return self }
+    var cm: Double { return self / 100.0 }
+    var mm: Double { return self / 1_000.0 }
+    var ft: Double { return self / 3.28084 }
+}
+let oneInch = 25.4.mm
+print("One inch is \(oneInch) meters")
+// Prints "One inch is 0.0254 meters"
+
+with methods:
+extension Int {
+    mutating func square() {
+        self = self * self
+    }
+}
+var someInt = 3
+someInt.square()
+
+even with subscripts:
+    extension Int {
+        subscript(digitIndex: Int) -> Int {
+            var decimalBase = 1
+            for _ in 0..<digitIndex {
+                decimalBase *= 10
+            }
+            return (self / decimalBase) % 10
+        }
+    }
+    746381295[0]
+    // returns 5
+    746381295[1]
+    // returns 9
+    746381295[2]
+    // returns 2
+    746381295[8]
+    // returns 7
+
+
+Protocols
+Just like Java interfaces and essentially the same as ObjC 
+
+    protocol SomeProtocol {
+        var mustBeSettable: Int { get set }
+        var doesNotNeedToBeSettable: Int { get }
+    }
+
+    class SomeClass: SomeSuperclass, SomeProtocol, AnotherProtocol {
+        // class definition goes here
+    }
+
+A simple delegate pattern
+
+protocol UploaderDelegate {
+    func uploadStarted()
+}
+
+class DocUploader:UploaderDelegate {
+    func uploadStarted() {
+        print("now uploading")
+    }
+}
+
+class SomeViewController {
+    var uploadDelegate:UploaderDelegate?
+    
+    func doUpload() {
+        uploadDelegate!.uploadStarted()
+    }
+}
+
+var anUploader = DocUploader()
+var someViewController = SomeViewController()
+someViewController.uploadDelegate = anUploader
+
+Generic Functions
+func swapTwoValues<T>(_ a: inout T, _ b: inout T) {
+    let temporaryA = a
+    a = b
+    b = temporaryA
+}
+var a="a", b="b"
+swapTwoValues(&a, &b)
+
+Generic Classes
+class Stack<Element> {
+    var items = [Element]()
+    func push(_ item: Element) {
+        items.append(item)
+    }
+    func pop() -> Element {
+        return items.removeLast()
+    }
+}
+
+var stackOfStrings = Stack<String>()
+stackOfStrings.push("uno")
+print(stackOfStrings.pop())
+
+Constraining types
+
+    func someFunction<T: SomeClass, U: SomeProtocol>(someT: T, someU: U) {
+        // function body goes here
+    }
+
