@@ -3,9 +3,9 @@ Class assignment one:
 Create a Swift playground and implement the following requirements. Turn in your .playground file into the assignments folder.
 
 Problem 1)
-Items go in bins at a location
+In the real world, my personal Items go in Bins at a Location
 Create 3 classes: Item, Location, Bin such that
-Item->Bin->Location
+Item has a Bin and Bin has a Location
 add an attribute called name to all 3 classes
 Declare an optional of type Item and set the Bin and Location
 if the optional is set, print the Item's name   
@@ -15,4 +15,4 @@ Declare an enum called EntityType with values Item, Location, Bin
 Add the entityType property to each of the classes Item, Location, Bin and set the EntityType as a default value
 Create an array that includes an instance of all 3 classes Item, Location, Bin
 create a for in loop over the array that contains a switch statement 
-print the following in each of the cases: "\(name) is a \(entityType) instance"
+print the following in each of the cases: "<name> is a <entityType> instance"

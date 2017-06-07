@@ -1,0 +1,21 @@
+Class assignment one: 
+
+Create a Swift playground and implement the following requirements. Turn in your .playground file into the assignments folder.
+
+Problem 1) Optional chaining
+Make the "name" property in each of the classes an optional
+Instantiate an Item with and set a Location and a Bin
+print the value of the Location name via the Item using optional chaining
+
+Problem 2) Protocols
+Define a protocol called "DataObject" that defines a get and set for the optional "name" property
+Update Item, Location and Bin to implement the protocol
+
+Problem 3) Error Handling
+Create an function called "persist" that takes a DataObject argument and throws an exception
+Throw an exception if the "name" property is nil and otherwise print the name
+Call the persist method and print the exception when the name is not given
+
+Problem 4) Error Enums
+Define an Error enum with an InvalidName case
+Throw InvalidName in the persist method when the name is nil
