@@ -381,7 +381,7 @@ reversedNames = names.sorted(by: { $0 > $1 } )
 And inferred by operator method
 reversedNames = names.sorted(by: >)
 
-Passing in closure
+Passing a closure
 func someFunctionThatTakesAClosure(closure: () -> Void) {
     // function body goes here
 }
@@ -401,16 +401,15 @@ they're using trailing closure syntax
 
 Capturing value
 
-    func makeIncrementer(forIncrement amount: Int) -> () -> Int {
-        var runningTotal = 0
-        func incrementer() -> Int {
-            runningTotal += amount
-            return runningTotal
-        }
-        return incrementer
-    }
+var someUnkownValue:Int?
+someUnkownValue = 5
 
-let incrementByTen = makeIncrementer(forIncrement: 10)
+func updateValues(_ a: inout Int, _ b: inout Int) {
+    a = a + someUnkownValue!
+    b = b * someUnkownValue!
+}
+var a=10, b=20
+updateValues(&a, &b)
 
 Escaping
 Use escaping when a closure is passed into a function but then called later (after the function returns)
@@ -443,13 +442,6 @@ case .west:
     print("Where the skies are blue")
 }
 
-Values can have different types and hold custom values:
-    enum Barcode {
-        case upc(Int, Int, Int, Int)
-        case qrCode(String)
-    }
-var productBarcode = Barcode.upc(8, 85909, 51226, 3)
-
 Custom "raw values" can be assigned at declaration time:
     enum ASCIIControlCharacter: Character {
         case tab = "\t"
@@ -473,6 +465,22 @@ if let somePlanet = Planet(rawValue: positionToFind) {
     }
 } else {
     print("There isn't a planet at position \(positionToFind)")
+}
+
+Associated values can also hold a tuple which is a common practice:
+    enum Barcode {
+        case upc(Int, Int, Int, Int)
+        case qrCode(String)
+    }
+var productBarcode = Barcode.upc(8, 85909, 51226, 3)
+
+To extract the values from the tuple use a switch statement:
+
+switch productBarcode {
+case let .upc(numberSystem, manufacturer, product, check):
+    print("UPC : \(numberSystem), \(manufacturer), \(product), \(check).")
+case let .qrCode(productCode):
+    print("QR code: \(productCode).")
 }
 
 Classes and Structs
