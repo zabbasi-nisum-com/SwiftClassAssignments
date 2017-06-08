@@ -73,6 +73,33 @@ if itemObj != nil{
     print ("The name of item is \((itemObj?.name)!)")
 }
 
+// problem 2
+
+let classArray = [
+    
+    Item.init(itemName: "Internet Device", binName: "Drawer",       locName: "Home"),
+    Item.init(itemName: "Mobile Phone", binName: "Front Desk", locName: "Home"),
+    Item.init(itemName: "Document", binName: "Locker", locName: "Bank"),
+    
+]
+
+for obj in classArray {
+    
+    switch obj.entityType {
+        
+    case .LocationType: print (" Name = \(obj.locName) Entity Type = \(obj.entityType) \n")
+    case .BinType: print (" Name = \(obj.binName) Entity Type = \(obj.entityType) \n")
+        
+    case .ItemType: print (" Name = \(obj.itemName) Entity Type = \(obj.entityType) \n")
+        
+        
+        
+    }
+    //SIMPLE WAY TO PRINT
+    
+    print (" Name = \(obj.name) Entity Type = \(obj.entityType) \n")
+}
+
 
 
 
