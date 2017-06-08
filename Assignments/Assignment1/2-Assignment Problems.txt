@@ -1,4 +1,4 @@
-Class assignment one: 
+Class assignment two: 
 
 Create a Swift playground and implement the following requirements. Turn in your .playground file into the assignments folder.
 
@@ -8,7 +8,7 @@ Instantiate an Item with and set a Location and a Bin
 print the value of the Location name via the Item using optional chaining
 
 Problem 2) Protocols
-Define a protocol called "DataObject" that defines a get and set for the optional "name" property
+Define a protocol called "EntityObject" that defines a get and set for the optional "name" property
 Update Item, Location and Bin to implement the protocol
 
 Problem 3) Error Handling
