@@ -12,8 +12,8 @@ enum EntityType {
 
 enum ValueType : Error {
     
-    case nilValue
-    case nilObject
+    case NilValue
+    case NilObject
 }
 
 protocol EntityObject : class {
@@ -99,26 +99,26 @@ func persist(dataObj : EntityObject?, entityType : EntityType )throws {
         case .LocationType : if let name = (dataObj as! Location).name {
             print ("name is \(name)")
         } else {
-            throw ValueType.nilValue
+            throw ValueType.NilValue
             
             }
         case .ItemType : if let name = (dataObj as! Item).name {
             print ("name is \(name)")
         } else {
-                throw ValueType.nilValue
+                throw ValueType.NilValue
             
             }
         case .BinType :  if let name = (dataObj as! Bin).name {
             print ("name is \(name)")
         } else {
-            throw ValueType.nilValue
+            throw ValueType.NilValue
             
             }
         }
         
     } else{
     
-        throw ValueType.nilObject
+        throw ValueType.NilObject
     }
 
 
@@ -126,14 +126,14 @@ func persist(dataObj : EntityObject?, entityType : EntityType )throws {
 
 do {
     
-    try persist(dataObj: nil  , entityType: .LocationType)
-} catch ValueType.nilValue{
+    try persist(dataObj: itemObj?.binObj?.location  , entityType: .LocationType)
+} catch ValueType.NilValue{
     
-    print("\(ValueType.nilValue) cannot print nil value ")
+    print("\(ValueType.NilValue) cannot print nil value ")
     
-} catch ValueType.nilObject{
+} catch ValueType.NilObject{
 
-    print ("\(ValueType.nilObject) Object is nil")
+    print ("\(ValueType.NilObject) Object is nil")
 
 
 }
