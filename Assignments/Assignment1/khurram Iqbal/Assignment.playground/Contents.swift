@@ -4,12 +4,11 @@
 import UIKit
 
 enum EntityType {
-    
     case ItemType
     case BinType
     case LocationType
-    
 }
+
 class Location {
     var entityType : EntityType {  return .LocationType}
     var locName : String! = ""
@@ -23,6 +22,7 @@ class Location {
         
     }
 }
+
 class Bin : Location{
     
     

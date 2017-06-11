@@ -8,21 +8,18 @@ var str = "Hello, playground"
 //Location Class
 class Location {
     
-    var locationName : String!
+    var locationName: String!
     
-    init (locationName : String)
-    {
+    init (locationName: String) {
         self.locationName = locationName
-        
     }
 }
 
 //Bin Class
-class Bin : Location
-{
+class Bin : Location {
     var binName: String!
     
-    init(binName : String,locationName : String) {
+    init(binName: String, locationName: String) {
         super.init(locationName: locationName)
         self.binName = binName
     }
@@ -34,7 +31,7 @@ class Item : Bin {
     var itemName : String!
     
     init(itemName : String, binName : String , locationName : String) {
-        super.init(binName : binName,locationName: locationName)
+        super.init(binName : binName, locationName: locationName)
         self.itemName = itemName
     }
     

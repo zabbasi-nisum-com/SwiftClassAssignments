@@ -70,7 +70,7 @@ let possibleString: String? = "An optional string."
 let forcedString: String = possibleString! // requires an exclamation mark
 
 let assumedString: String!
-assumedString = "An implicitly unwrapped optional cannot be nil and then set exactly once."
+assumedString = "An implicitly unwrapped optional can be nil and then set exactly once."
 let implicitString: String = assumedString // no need for an exclamation mark
 print(implicitString)
     

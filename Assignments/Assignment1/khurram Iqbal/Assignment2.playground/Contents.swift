@@ -79,9 +79,9 @@ class Item : EntityObject {
 
 
 
-var itemObj : Item?
-var binObj : Bin?
-var locObj : Location?
+var itemObj: Item?
+var binObj: Bin?
+var locObj: Location?
 
 locObj = Location(locName: nil)
 binObj = Bin(binName: "Drawer", Location: locObj)
@@ -91,7 +91,7 @@ itemObj =  Item.init(itemName: "Mobile", bin: binObj)
 
 
 
-func persist(dataObj : Any? , entityType : EntityType )throws {
+func persist(dataObj : EntityObject?, entityType : EntityType )throws {
     
     if dataObj != nil{
         switch entityType{
@@ -126,7 +126,7 @@ func persist(dataObj : Any? , entityType : EntityType )throws {
 
 do {
     
-    try persist(dataObj: itemObj?.binObj?.location  , entityType: .LocationType)
+    try persist(dataObj: nil  , entityType: .LocationType)
 } catch ValueType.nilValue{
     
     print("\(ValueType.nilValue) cannot print nil value ")

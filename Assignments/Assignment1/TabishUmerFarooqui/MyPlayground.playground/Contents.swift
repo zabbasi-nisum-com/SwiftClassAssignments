@@ -9,20 +9,23 @@ var str = "Hello, playground"
 
 // My personal Books (Item) go inside a Shelf (Bin) in my Library (Location)
 
-class myBooks : myShelf {// Item Class
+// Item Class
+class MyBooks: MyShelf {
     var bookName: String?
 }
 
-class myShelf : myLibrary {// Bin class
+// Bin class
+class MyShelf:MyLibrary {
     var shelfName: String?
 }
 
-class myLibrary {// Location Class
+// Location Class
+class MyLibrary {
     var libraryName: String?
 }
 
-var optionalValue:myBooks?
-optionalValue = myBooks()
+var optionalValue: MyBooks?
+optionalValue = MyBooks()
 
 optionalValue?.shelfName = "Information Technology"
 optionalValue?.libraryName = "Central Library"
@@ -32,4 +35,3 @@ if optionalValue != nil {
     print(" \(String(describing: (optionalValue?.bookName)!))")
 
 }
-

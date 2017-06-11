@@ -23,11 +23,11 @@ class item {
     var name = String()
     
     //Optional chaning
-    var bn: bin?
+    var bin: Bin?
     
-    init(bi :String , lo :String) {
+    init(bin :String , lo :String) {
         print("item init")
-        bn = bin(bn: bi,Loc: lo)
+        bin = Bin(bin: bin,loc: loc)
     }
     
     weak var EntityObject:EntityObject?
@@ -39,7 +39,6 @@ class item {
         set(newValue) {
             name = newValue
         }
-        
     }
     
     func persist(itemNamed name: String?) throws {
@@ -53,17 +52,17 @@ class item {
     }
 }
 
-class bin {
+class Bin {
     
     //initialize string
     var name = String()
     
     //Optional chaning
-    var lc : location?
+    var loc: location?
     
-    init(bn :String , Loc :String) {
-        self.name = bn;
-        lc = location(loc: Loc)
+    init(binName: String , loc: String) {
+        self.name = binName;
+        loc = location(loc: loc)
         print("Bin init")
     }
     

@@ -1,0 +1,114 @@
+//: Playground - noun: a place where people can play
+
+import UIKit
+
+enum EntityType {
+    case Bin
+    case Item
+    case Location
+}
+
+enum EntityError: Error    {
+    case InvalidName(description:String)
+    case InvalidEntityType(description:String)
+}
+
+protocol EntityProtocol: class {
+    var name:String? { get set }
+    init(name:String) throws
+}
+
+class EntityBase    {
+    var name:String?
+    var entityType:EntityType?
+    
+    init(name:String, entityTypeName:String) throws   {
+        self.name = name
+        self.entityType = try EntityBase.getEntityType(fromString:entityTypeName)
+    }
+    
+    init(name:String, entityType:EntityType)   {
+        self.name = name
+        self.entityType = entityType
+    }
+    
+    static func getEntityType(fromString:String) throws -> EntityType? {
+        var entityType:EntityType?
+        switch (fromString) {
+            case String(describing:EntityType.Bin):
+                entityType = EntityType.Bin
+            case String(describing:EntityType.Item):
+                entityType = EntityType.Item
+            case String(describing:EntityType.Location):
+                entityType = EntityType.Location
+        default: throw EntityError.InvalidEntityType(description:"Invalid Name Provided");
+        }
+        return entityType
+    }
+    
+    //Doesn't work because self is not available until after init is complete
+    //    func getEntityType(fromObject:EntityBase) -> EntityType? {
+    //        return EntityBase.getEntityType(fromString: String(describing:type(of:self)))
+    //    }
+}
+
+class Item:EntityBase, EntityProtocol {
+    var bin:Bin?
+    
+    convenience init(name:String, bin:Bin) throws  {
+        try self.init(name:name)
+        self.bin = bin
+    }
+    
+    required init(name:String) throws   {
+        try super.init(name:name, entityTypeName:String(describing:type(of:self)))
+    }
+}
+
+class Bin:EntityBase, EntityProtocol {
+    var location:Location?
+    
+    convenience init(name:String, location:Location) throws  {
+        try self.init(name:name)
+        self.location = location
+    }
+    
+    required init(name:String) throws  {
+        try super.init(name:name, entityTypeName:String(describing:type(of:self)))
+    }
+}
+
+class Location:EntityBase, EntityProtocol {
+    required init(name:String) throws  {
+        try super.init(name:name, entityTypeName:String(describing:type(of:self)))
+    }
+}
+
+var item:Item?
+do {
+    item = try Item(name:"1.75\" Brushed Nickel Knobs", bin:Bin(name: "Red drawer #2", location: Location(name: "Kitchen closet")))
+} catch EntityError.InvalidEntityType((let description)) {
+    print("Exception thrown initializing item \(String(describing:EntityError.InvalidName)) \(description)")
+}
+
+if let locationName = item?.bin?.location?.name {
+    print("Item location is \(locationName)")
+}
+
+func persist(entity:EntityBase) throws {
+    guard entity.name != nil else {
+        throw EntityError.InvalidName(description:"Name is nil");
+    }
+    print("\(entity.name!) is a \(entity.entityType!) instance")
+}
+
+
+let entityArray = [item!, item!.bin!, item!.bin!.location!] as [EntityBase]
+item?.bin?.name = nil
+for entity in entityArray {
+    do {
+        try persist(entity: entity)
+    } catch EntityError.InvalidName((let description)) {
+        print("Exception thrown persisting \(entity.entityType!): \(description)")
+    }
+}

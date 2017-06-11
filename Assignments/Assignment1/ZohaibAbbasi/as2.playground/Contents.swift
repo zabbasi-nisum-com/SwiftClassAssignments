@@ -9,14 +9,11 @@ import UIKit
 //Here we create protocol for update Values
 protocol EntityObject:class {
     var pname: String { get set }
-
-    
 }
 
 enum checkName: Error {
     case nameNotGiven
     case InvalidName
-
 }
 
 
@@ -150,7 +147,6 @@ do {
 
 //Passing Name
 do {
-    
     //Here we pass nil for checking Persist Behavior
     try itemMaster?.persist(itemNamed: "Zohaib")
     

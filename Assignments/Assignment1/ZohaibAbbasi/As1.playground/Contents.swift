@@ -42,7 +42,7 @@ someOptional?.setParameters(nam: "BOOK", bin: "Bin-Code", loc: "PK")
 
 //Here we check
 if someOptional != nil {
-    print("Class assignment one: \n \(String(describing: (someOptional?.name)!)) ,\(String(describing: (someOptional?.binname)!)) ,\(String(describing: (someOptional?.locname)!))")
+    print("Class assignment one: \n \(someOptional!.name) ,\(someOptional!.binname) ,\(String(describing: (someOptional?.locname)!))")
 }
 
 
