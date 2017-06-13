@@ -41,7 +41,7 @@ Swift Programming Language Guide
 
 Class schedule:
 San Francisco				Karachi​                    Hyderabad​
-Monday ​8-10 PM				Tuesday ​8-10 AM​          Tuesday 8:30-10:30am   ​
+Monday ​8-10 PM				Tuesday ​8-10 AM​          	Tuesday 8:30-10:30am   ​
 Wednesday ​8-10 PM			Thursday ​8-10 AM​			Thursday 8:30-10:30am ​
 Thursday 8:30-9:30 PM		Friday 8:30-9:30 AM​        Friday​9-10am
 
@@ -61,4 +61,5 @@ Swift since 2015 and already live w/ a couple of projects.
 Zohaib: 8 years dev experience, 4 yrs in Objective C, using some Swift libraries in projects.
 PHP, VB .Net, C#, JavaScript, Objective C. Writing some Swift.
 Praveen: 6 yrs Objective C, iOS only. Some .Net, C#. Not much but a little bit Swift. Recently joined Nisum
-Harish: iOS since 2011, some products in app store, using Swift 2. 
+Harish: iOS since 2011, some products in app store, using Swift 2.
+Usman: 1.5 years experience with Swift, Objective-C 2.5 yrs, some Java

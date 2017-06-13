@@ -1,0 +1,47 @@
+Lesson 3 UI Basics
+
+Create a new XCode project
+Add text fields and wire them in
+Add Navigation Bar and wire
+Set the Navigation Bar title  - navigationBar.topItem?.title  
+Add Save button and wire it 
+Print the value of text fields when clicked - saveButton.addTarget(self, action: #selector(saveHandler), for: .touchUpInside)
+Add Picker and wire it - picker.isHidden
+Display the picker when binText selected - UITextFieldDelegate, textFieldShouldBeginEditing, binText.delegate , picker.isHidden
+Make the text fields read-only - allowEditing = false
+Add picker delegate data source protocols - UIPickerViewDataSource, picker.delegate, picker.dataSource, numberOfComponents, pickerView numberOfRowsInComponent, pickerView titleForRow, 
+load pickerData from [String] when field selected - UITextFieldDelegate, textFieldShouldBeginEditing, 
+Implement picker selection delegate methods - UIPickerViewDelegate, pickerView didSelectRow, 
+update bin text and hide picker after selected - picker.isHidden
+
+Display the picker when locationText selected - textFieldShouldBeginEditing
+Switch between loading Location strings and bin strings based on text field selected - switch, picker.reloadAllComponents
+Create a closure that captures entityType and keep a reference to be called when didSelectRow - enum EntityType
+
+Add button for "Add" bin
+Wire in the button - addBinButton.addTarget(self, action: #selector(addBinHandler), for: .touchUpInside)
+Create a ViewController for Add Bin
+Create a modal segue to Add Bin
+Add text and save button and wire it in
+Create an unwind segue back to AddItem
+Create a protocol called LocationViewController
+print the value from the name field in the Add Item View Controller once the segue has been unwound
+
+
+
+
+add Bin object with name and load data 
+Add NavigationItem and wire it in
+Add Search button 
+
+
+Next Session:
+TableViewController
+CollectionView
+StackView, MapView
+weakself in closures
+flux with ios?
+@IBDesignable
+Focus on UI
+
+React Native down the road
