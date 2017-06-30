@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16F73" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Bin" representedClassName="Bin" parentEntity="EntityBase" syncable="YES" codeGenerationType="class">
+        <relationship name="binToItem" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Item" inverseName="itemtoBin" inverseEntity="Item" syncable="YES"/>
+        <relationship name="binToLoc" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Location" inverseName="locToBin" inverseEntity="Location" syncable="YES"/>
+    </entity>
+    <entity name="EntityBase" representedClassName="EntityBase" isAbstract="YES" syncable="YES" codeGenerationType="class">
+        <attribute name="entityModelType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Item" representedClassName="Item" parentEntity="EntityBase" syncable="YES" codeGenerationType="class">
+        <attribute name="qty" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="itemtoBin" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Bin" inverseName="binToItem" inverseEntity="Bin" syncable="YES"/>
+    </entity>
+    <entity name="Location" representedClassName="Location" parentEntity="EntityBase" syncable="YES" codeGenerationType="class">
+        <relationship name="locToBin" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Bin" inverseName="binToLoc" inverseEntity="Bin" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Bin" positionX="-36" positionY="27" width="128" height="75"/>
+        <element name="EntityBase" positionX="-63" positionY="-18" width="128" height="90"/>
+        <element name="Item" positionX="-54" positionY="18" width="128" height="75"/>
+        <element name="Location" positionX="0" positionY="45" width="128" height="60"/>
+    </elements>
+</model>
