@@ -1,0 +1,44 @@
+{
+  "item": [
+    {
+      "id": 1,
+      "entityModelType": "Item",
+      "name": "Item 1",
+      "qty": 5,
+      "bin":  {
+        "id": 1,
+        "entityModelType": "Bin",
+        "name": "Bin 1",
+        "location": {
+          "id": 1,
+          "entityModelType": "Location",
+          "name": "Location 1"
+        }
+      }
+    },
+    {
+      "id": 2,
+      "entityModelType": "Item",
+      "name": "Item 2",
+      "qty": 6
+    },
+    {
+      "id": 3,
+      "entityModelType": "Item",
+      "name": "Item 3",
+      "qty": 7
+    },
+    {
+      "id": 4,
+      "entityModelType": "Item",
+      "name": "A Item",
+      "qty": 7
+    },
+    {
+      "id": 5,
+      "entityModelType": "Item",
+      "name": "Another Item",
+      "qty": 7
+    }
+  ]
+}
